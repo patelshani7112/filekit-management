@@ -1,0 +1,128 @@
+###############################
+#  Node Dependencies
+###############################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+###############################
+#  Build Output (Frontend + Backend)
+###############################
+dist/
+build/
+.cache/
+.next/
+out/
+public/build/
+coverage/
+
+###############################
+#  Vite / React / Web Bundlers
+###############################
+.vite/
+.esbuild/
+vite.config.ts.timestamp*
+
+###############################
+#  Logs
+###############################
+logs/
+*.log
+*.log.*
+log.txt
+
+###############################
+#  Environment Files (Important!)
+###############################
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.test
+.env.staging
+!*.example
+
+###############################
+#  Temporary / OS Files
+###############################
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*.tmp
+
+###############################
+#  IDE & Editor Files
+###############################
+.vscode/
+.idea/
+*.iml
+
+###############################
+#  TypeScript
+###############################
+*.tsbuildinfo
+
+###############################
+#  Python (for python-worker)
+###############################
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+pip-log.txt
+venv/
+.env.python/
+
+###############################
+#  Uploads / File Processing
+#  DO NOT push user temp files
+###############################
+uploads/
+temp/
+tmp/
+files/
+output/
+processed/
+storage/
+workspace/
+
+###############################
+#  Cloudflare Workers / Serverless
+###############################
+.wrangler/
+.worker/
+.cloudflare/
+
+###############################
+#  Docker
+###############################
+docker-data/
+*.pid
+*.seed
+
+###############################
+#  Misc
+###############################
+*.bak
+*.orig
+*.cache
+*.local
+*.envrc
+*.pem
+*.key
+*.keystore
+
+###############################
+#  Ignore local configs
+###############################
+config.local.json
+config.dev.json
+local-settings.json

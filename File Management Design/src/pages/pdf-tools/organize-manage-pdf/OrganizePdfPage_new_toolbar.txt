@@ -1,0 +1,251 @@
+          {/* Toolbar */}
+          <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+            <div className="container mx-auto px-4 py-2">
+              {/* Main Toolbar Row */}
+              <div className="flex items-center gap-1.5 flex-nowrap">
+                {/* Back Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleBackToUpload}
+                  className="gap-1 text-xs h-8 flex-shrink-0"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  Back to Upload
+                </Button>
+
+                {/* Page Count */}
+                <div className="text-xs text-gray-600 px-2 border-r h-8 flex items-center flex-shrink-0 whitespace-nowrap">
+                  {pdfPages.length} pages total • {(files.reduce((sum, f) => sum + f.size, 0) / (1024 * 1024)).toFixed(2)} MB
+                </div>
+
+                {/* Select All */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSelectAll}
+                  className="text-xs h-8 gap-1 flex-shrink-0"
+                  title="Select All"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  Select All
+                </Button>
+
+                {/* Deselect */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDeselectAll}
+                  className="h-8 px-2 flex-shrink-0"
+                  disabled={selectedPages.size === 0}
+                  title="Deselect"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </Button>
+
+                {selectedPages.size > 0 && (
+                  <span className="text-xs text-gray-500 flex-shrink-0">
+                    ({selectedPages.size})
+                  </span>
+                )}
+
+                <div className="w-px h-6 bg-gray-300" />
+
+                {/* Rotate Left */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleRotateSelected("left")}
+                  disabled={selectedPages.size === 0}
+                  title="Rotate Left"
+                  className="h-8 px-2 flex-shrink-0"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </Button>
+
+                {/* Rotate Right */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleRotateSelected("right")}
+                  disabled={selectedPages.size === 0}
+                  title="Rotate Right"
+                  className="h-8 px-2 flex-shrink-0"
+                >
+                  <RotateCw className="w-3.5 h-3.5" />
+                </Button>
+
+                <div className="w-px h-6 bg-gray-300" />
+
+                {/* Duplicate */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDuplicateSelected}
+                  disabled={selectedPages.size === 0}
+                  title="Duplicate Selected"
+                  className="text-xs h-8 gap-1 flex-shrink-0"
+                >
+                  <Copy className="w-3.5 h-3.5" />
+                  Duplicate
+                </Button>
+
+                {/* Delete */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDeleteSelected}
+                  disabled={selectedPages.size === 0}
+                  title="Delete Selected"
+                  className="h-8 px-2 text-red-600 hover:bg-red-50 flex-shrink-0"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </Button>
+
+                <div className="w-px h-6 bg-gray-300" />
+
+                {/* Move to Start */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleMoveToStart}
+                  disabled={selectedPages.size === 0}
+                  title="Move to Start"
+                  className="h-8 px-2 flex-shrink-0"
+                >
+                  <ArrowUpToLine className="w-3.5 h-3.5" />
+                </Button>
+
+                {/* Move to End */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleMoveToEnd}
+                  disabled={selectedPages.size === 0}
+                  title="Move to End"
+                  className="h-8 px-2 flex-shrink-0"
+                >
+                  <ArrowDownToLine className="w-3.5 h-3.5" />
+                </Button>
+
+                <div className="w-px h-6 bg-gray-300" />
+
+                {/* Sort */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSortDialogOpen(true)}
+                  className="text-xs h-8 gap-1 flex-shrink-0"
+                  title="Sort Pages"
+                >
+                  <SortAsc className="w-3.5 h-3.5" />
+                  Sort
+                </Button>
+
+                {/* Reverse */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="text-xs h-8 gap-1 flex-shrink-0" title="Reverse Pages">
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      Reverse
+                      <ChevronDown className="w-3 h-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={handleReverseOrder}>
+                      <RefreshCw className="w-3.5 h-3.5 mr-2" />
+                      Reverse All Pages
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={handleReverseSelected}
+                      disabled={selectedPages.size === 0}
+                    >
+                      <RefreshCw className="w-3.5 h-3.5 mr-2" />
+                      Reverse Selected Pages
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <div className="w-px h-6 bg-gray-300" />
+
+                {/* Grid/List View */}
+                <Button
+                  variant={viewMode === "grid" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("grid")}
+                  className="h-8 px-2 flex-shrink-0"
+                  title="Grid View"
+                >
+                  <Grid className="w-3.5 h-3.5" />
+                </Button>
+                <Button
+                  variant={viewMode === "list" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("list")}
+                  className="h-8 px-2 flex-shrink-0"
+                  title="List View"
+                >
+                  <ListIcon className="w-3.5 h-3.5" />
+                </Button>
+
+                {/* Save PDF Button */}
+                <Button
+                  onClick={handleSavePdf}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-8 ml-auto gap-1 flex-shrink-0"
+                  size="sm"
+                >
+                  Save PDF
+                  <Download className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+
+              {/* Secondary Toolbar Row */}
+              <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-gray-100">
+                {/* Insert */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="text-xs h-7 gap-1">
+                      <Plus className="w-3 h-3" />
+                      Insert
+                      <ChevronDown className="w-3 h-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setInsertBlankDialogOpen(true)}>
+                      <FilePlus2 className="w-3.5 h-3.5 mr-2" />
+                      Insert Blank Page
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setInsertPdfDialogOpen(true)}>
+                      <FileText className="w-3.5 h-3.5 mr-2" />
+                      Insert from PDF
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setReplacePageDialogOpen(true)}>
+                      <Replace className="w-3.5 h-3.5 mr-2" />
+                      Replace Page
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* Auto Tools */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="text-xs h-7 gap-1">
+                      <Wand2 className="w-3 h-3" />
+                      Auto Tools
+                      <ChevronDown className="w-3 h-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={handleRemoveBlankPages}>
+                      <Eraser className="w-3.5 h-3.5 mr-2" />
+                      Remove Blank Pages
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleAutoRotate}>
+                      <RotateCw className="w-3.5 h-3.5 mr-2" />
+                      Auto-Rotate Pages
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          </div>
