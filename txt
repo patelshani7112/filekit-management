@@ -1,0 +1,13 @@
+cd "filekit-backend-structured/workers/pdf-worker"
+pip install -r requirements.txt
+python -m uvicorn main:app --host 0.0.0.0 --port 8001
+
+
+cd "filekit-backend-structured/node-api"
+pnpm install
+pnpm run dev   # listens on 4000 by default
+
+
+cd "File Management Design"
+pnpm install    # or pnpm install
+pnpm run dev    # Vite on 5173
